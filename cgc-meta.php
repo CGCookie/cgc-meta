@@ -8,6 +8,7 @@
 
 if( !class_exists( 'CMB2' ) ) {
 	require_once( 'init.php' );
+	require_once('custom-fields/select2/cmb-field-select2.php');
 }
 
 /* Custom Field Types */
@@ -20,19 +21,23 @@ if( !class_exists( 'CMB2' ) ) {
 function cgc_get_posts_for_cmb( $query_args ) {
 
     $args = wp_parse_args( $query_args, array(
-        'post_type' => 'post',
+        'post_type' => array('post'),
         'numberposts' => -1,
     ) );
 
     $posts = get_posts( $args );
 
     $post_options = array();
+
     if ( $posts ) {
         foreach ( $posts as $post ) {
-                   $post_options[] = array(
-                       'name' => $post->post_title,
-                       'value' => $post->ID
-                   );
+
+        	$type = $post->post_type;
+
+           	$post_options[] = array(
+               'name' => strtoupper($type).': '.$post->post_title,
+               'value' => $post->ID
+           	);
         }
     }
 
