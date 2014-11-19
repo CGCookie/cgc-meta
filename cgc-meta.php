@@ -7,6 +7,10 @@
 *	Description:
 */
 
+if( !class_exists( 'CMB2' ) ) {
+	require_once('custom-fields/select2/cmb-field-select2.php');
+}
+
 function cgc_get_posts_for_cmb( $query_args ) {
 
     $args = wp_parse_args( $query_args, array(
